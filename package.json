@@ -1,0 +1,7 @@
+{
+  "name": "kora-tech-site",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ."
+  }
+}
