@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kora Tech — Smart Telematics for Every Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#0B1929;--navy-mid:#112238;--navy-lt:#1A344F;--navy-bdr:#1E3D5C;
+      --gold:#C9A84C;--gold-lt:#E2C478;--gold-pale:rgba(201,168,76,0.12);
+      --slate:#4A7FA5;--ivory:#F5F0E8;
+      --text-lt:#7A9AB8;--text-md:#3A5470;--white:#FFFFFF;
+      --f-serif:'DM Serif Display',Georgia,serif;
+      --f-sans:'DM Sans',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--f-sans);background:var(--navy);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:66px;background:rgba(11,25,41,0.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,168,76,0.14)}
+    .logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+    .logo-mark{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative}
+    .logo-inner-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);z-index:1;position:relative}
+    .logo-mark::after{content:'';position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);animation:ping 2.2s ease-in-out infinite}
+    @keyframes ping{0%{transform:scale(1);opacity:.8}70%{transform:scale(2.6);opacity:0}100%{transform:scale(1);opacity:0}}
+    .logo-text{font-size:1.15rem;font-weight:600;letter-spacing:.06em;color:var(--white)}
+    .logo-text span{color:var(--gold)}
+    nav ul{display:flex;gap:2.2rem;list-style:none}
+    nav ul a{font-size:.82rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-lt);text-decoration:none;transition:color .2s}
+    nav ul a:hover{color:var(--gold)}
+    .nav-book{font-size:.82rem;font-weight:600;letter-spacing:.06em;padding:9px 20px;border-radius:4px;border:1.5px solid var(--gold);color:var(--gold);text-decoration:none;transition:background .2s,color .2s}
+    .nav-book:hover{background:var(--gold);color:var(--navy)}
+
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 6vw 80px;background:radial-gradient(ellipse 120% 100% at 50% 0%,#142840 0%,var(--navy) 70%)}
+    #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.85}
+    .hero-inner{position:relative;z-index:2;text-align:center;max-width:860px}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:2.2rem}
+    .hero-tag::before,.hero-tag::after{content:'';display:block;width:24px;height:1px;background:var(--gold);opacity:.5}
+    .hero-headline{font-family:var(--f-serif);font-size:clamp(3rem,6.5vw,5.8rem);line-height:1.06;color:var(--white);margin-bottom:1.6rem}
+    .hero-headline em{font-style:italic;color:var(--gold-lt)}
+    .hero-sub{font-size:1.05rem;font-weight:300;line-height:1.8;color:var(--text-lt);max-width:560px;margin:0 auto 3rem}
+    .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-gold{display:inline-block;padding:14px 36px;border-radius:4px;font-size:.9rem;font-weight:600;letter-spacing:.04em;background:var(--gold);color:var(--navy);text-decoration:none;transition:background .2s,transform .15s}
+    .btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px)}
+    .btn-ghost{display:inline-block;padding:14px 36px;border-radius:4px;font-size:.9rem;font-weight:500;background:transparent;color:var(--text-lt);text-decoration:none;border:1.5px solid var(--navy-bdr);transition:border-color .2s,color .2s}
+    .btn-ghost:hover{border-color:var(--text-lt);color:var(--white)}
+    .hero-domains{display:flex;justify-content:center;margin-top:5rem;padding-top:3rem;border-top:1px solid var(--navy-bdr)}
+    .hero-domain{flex:1;max-width:220px;text-align:center;padding:0 2rem;border-right:1px solid var(--navy-bdr)}
+    .hero-domain:last-child{border-right:none}
+    .domain-icon{width:44px;height:44px;margin:0 auto 1rem;border:1px solid rgba(201,168,76,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--gold-pale)}
+    .domain-icon svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .domain-label{font-family:var(--f-serif);font-size:1.1rem;color:var(--white);margin-bottom:.3rem}
+    .domain-sub{font-size:.78rem;color:var(--text-lt);line-height:1.5}
+
+    .section{padding:100px 6vw}
+    .sec-label{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:1rem}
+    .sec-title{font-family:var(--f-serif);font-size:clamp(2rem,3.5vw,2.9rem);line-height:1.15;color:var(--white);margin-bottom:1.2rem}
+    .sec-body{font-size:.97rem;line-height:1.8;color:var(--text-lt);max-width:520px}
+
+    .partners{padding:40px 6vw;background:var(--navy-mid);border-top:1px solid var(--navy-bdr);border-bottom:1px solid var(--navy-bdr)}
+    .partners-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
+    .partners-label{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-lt);white-space:nowrap}
+    .partners-divider{width:1px;height:32px;background:var(--navy-bdr)}
+    .partners-logos{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:center}
+    .partner-badge{display:flex;align-items:center;gap:10px;padding:8px 18px 8px 12px;border:1px solid var(--navy-bdr);border-radius:4px;background:rgba(255,255,255,.03);transition:border-color .2s}
+    .partner-badge:hover{border-color:rgba(201,168,76,.35)}
+    .pbadge-icon{width:30px;height:30px;border-radius:4px;background:var(--gold-pale);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .pbadge-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .pbadge-name{font-size:.8rem;font-weight:600;color:var(--white);letter-spacing:.03em}
+    .pbadge-role{font-size:.64rem;color:var(--text-lt);letter-spacing:.04em}
+
+    #domains{background:var(--navy)}
+    .domains-header{text-align:center;max-width:640px;margin:0 auto 5rem}
+    .domains-header .sec-body{margin:0 auto;text-align:center}
+    .domains-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:1200px;margin:0 auto;background:var(--navy-bdr);border-radius:12px;overflow:hidden}
+    .domain-card{background:var(--navy-mid);padding:3rem 2.4rem;transition:background .25s;position:relative;overflow:hidden}
+    .domain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .3s}
+    .domain-card:hover::before{transform:scaleX(1)}
+    .domain-card:hover{background:var(--navy-lt)}
+    .dc-icon{width:52px;height:52px;border-radius:10px;margin-bottom:1.8rem;background:var(--gold-pale);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center}
+    .dc-icon svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .domain-card h3{font-family:var(--f-serif);font-size:1.5rem;color:var(--white);margin-bottom:.9rem;line-height:1.2}
+    .domain-card p{font-size:.9rem;line-height:1.75;color:var(--text-lt);margin-bottom:1.5rem}
+    .dc-features{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+    .dc-features li{display:flex;align-items:center;gap:9px;font-size:.83rem;color:var(--text-lt)}
+    .dc-features li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;opacity:.7}
+
+    #how{background:var(--navy-mid);border-top:1px solid var(--navy-bdr);border-bottom:1px solid var(--navy-bdr)}
+    .how-inner{max-width:1100px;margin:0 auto}
+    .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:4rem;background:var(--navy-bdr);border-radius:10px;overflow:hidden}
+    .how-step{background:var(--navy-mid);padding:2.4rem 2rem;transition:background .25s}
+    .how-step:hover{background:var(--navy-lt)}
+    .step-n{font-family:var(--f-serif);font-size:2.5rem;color:rgba(201,168,76,.15);line-height:1;margin-bottom:1rem}
+    .how-step h4{font-size:.95rem;font-weight:600;color:var(--white);margin-bottom:.6rem;line-height:1.3}
+    .how-step p{font-size:.84rem;line-height:1.7;color:var(--text-lt)}
+
+    #coverage{background:var(--navy)}
+    .coverage-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.35fr;gap:6rem;align-items:center}
+    .map-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--navy-bdr);aspect-ratio:1.15;background:var(--navy-mid)}
+    #map-canvas{width:100%;height:100%}
+    .map-legend{margin-top:2rem;display:flex;flex-direction:column;gap:.7rem}
+    .legend-item{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-lt)}
+    .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .legend-dot.hq{background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.6)}
+    .legend-dot.ops{background:var(--slate);box-shadow:0 0 6px rgba(74,127,165,.5)}
+
+    #booking{background:linear-gradient(160deg,var(--navy-lt) 0%,var(--navy-mid) 100%);border-top:1px solid var(--navy-bdr)}
+    .booking-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start}
+    .booking-info{padding-top:1rem}
+    .booking-note{margin-top:2rem;padding:1.2rem 1.5rem;background:var(--gold-pale);border-left:2px solid var(--gold);border-radius:0 6px 6px 0}
+    .booking-note strong{color:var(--gold-lt);display:block;margin-bottom:.3rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+    .booking-note p{font-size:.85rem;line-height:1.6;color:var(--text-lt)}
+    .calendly-embed{background:var(--navy);border:1px solid var(--navy-bdr);border-radius:10px;overflow:hidden;padding:2.5rem 2rem}
+    .cal-section-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-lt);margin-bottom:1rem;display:block}
+    .cal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.8rem}
+    .cal-day{padding:10px 6px;border-radius:6px;text-align:center;cursor:pointer;border:1px solid var(--navy-bdr);transition:all .2s}
+    .cal-day.open:hover,.cal-day.open.picked{border-color:var(--gold);background:var(--gold-pale)}
+    .cal-day.closed{opacity:.28;cursor:default}
+    .cal-day .day-name{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);margin-bottom:4px}
+    .cal-day.open.picked .day-name,.cal-day.open:hover .day-name{color:var(--gold)}
+    .cal-day .day-date{font-size:.8rem;color:var(--white);font-weight:500}
+    .cal-times{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.8rem}
+    .cal-time{padding:7px 14px;border-radius:4px;font-size:.8rem;border:1px solid var(--navy-bdr);color:var(--text-lt);cursor:pointer;transition:all .2s}
+    .cal-time:hover,.cal-time.sel{border-color:var(--gold);color:var(--gold);background:var(--gold-pale)}
+    .cal-time.sel{font-weight:600}
+    .cal-book-btn{display:block;width:100%;padding:13px;background:var(--gold);color:var(--navy);font-weight:600;font-size:.9rem;border:none;border-radius:6px;cursor:pointer;font-family:var(--f-sans);transition:background .2s;margin-bottom:.8rem}
+    .cal-book-btn:hover{background:var(--gold-lt)}
+    .cal-note{font-size:.72rem;color:var(--text-lt);text-align:center;line-height:1.6}
+
+    #contact{background:var(--navy-mid);border-top:1px solid var(--navy-bdr)}
+    .contact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .contact-details{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.8rem}
+    .cd-item{display:flex;align-items:flex-start;gap:14px}
+    .cd-icon{width:40px;height:40px;border-radius:8px;border:1px solid rgba(201,168,76,.25);background:var(--gold-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .cd-icon svg{width:17px;height:17px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .cd-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt);margin-bottom:3px}
+    .cd-val{font-size:.95rem;font-weight:500;color:var(--white)}
+    .cd-val a{color:var(--white);text-decoration:none}
+    .cd-val a:hover{color:var(--gold)}
+    .contact-form{display:flex;flex-direction:column;gap:1.1rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .fg{display:flex;flex-direction:column;gap:5px}
+    .fg label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-lt)}
+    .fg input,.fg textarea,.fg select{background:var(--navy);border:1px solid var(--navy-bdr);border-radius:6px;padding:11px 14px;font-family:var(--f-sans);font-size:.9rem;color:var(--white);outline:none;transition:border-color .2s;resize:none}
+    .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold)}
+    .fg input::placeholder,.fg textarea::placeholder{color:var(--text-lt);opacity:.5}
+    .fg select{appearance:none;cursor:pointer}
+    .fg select option{background:var(--navy-mid)}
+    .form-submit{display:inline-flex;align-items:center;gap:10px;padding:13px 32px;border-radius:4px;background:var(--gold);color:var(--navy);font-weight:600;font-size:.9rem;font-family:var(--f-sans);border:none;cursor:pointer;transition:background .2s,transform .15s;margin-top:.4rem}
+    .form-submit:hover{background:var(--gold-lt);transform:translateY(-1px)}
+    .form-submit svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    footer{background:var(--navy);border-top:1px solid var(--navy-bdr);padding:3.5rem 6vw}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+    .footer-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:.4rem}
+    .footer-dot{width:22px;height:22px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center}
+    .footer-dot::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold)}
+    .footer-name{font-size:1rem;font-weight:600;letter-spacing:.05em;color:var(--white)}
+    .footer-name span{color:var(--gold)}
+    .footer-copy{font-size:.75rem;color:var(--text-lt)}
+    .footer-links{display:flex;gap:2rem;flex-wrap:wrap}
+    .footer-links a{font-size:.78rem;color:var(--text-lt);text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-loc{font-size:.78rem;color:var(--text-lt);display:flex;align-items:center;gap:6px}
+    .footer-loc svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    @media(max-width:960px){nav ul{display:none}.domains-grid,.how-grid{grid-template-columns:1fr}.coverage-inner,.booking-inner,.contact-inner{grid-template-columns:1fr;gap:3rem}.hero-domains{flex-direction:column;align-items:center;gap:2rem}.hero-domain{border-right:none;border-bottom:1px solid var(--navy-bdr);padding-bottom:2rem;max-width:100%;width:100%}.hero-domain:last-child{border-bottom:none}.form-row{grid-template-columns:1fr}}
+    @media(max-width:600px){.hero-headline{font-size:2.8rem}.hero-actions{flex-direction:column;align-items:center}.cal-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark"><div class="logo-inner-dot"></div></div>
+    <div class="logo-text">KORA <span>TECH</span></div>
+  </a>
+  <ul>
+    <li><a href="#domains">Solutions</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#coverage">Coverage</a></li>
+    <li><a href="#booking">Book a Call</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#booking" class="nav-book">Book Consultation</a>
+</nav>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-tag">Nairobi, Kenya &mdash; Smart Telematics</div>
+    <h1 class="hero-headline">Every machine<br/>tells a <em>story.</em><br/>We listen.</h1>
+    <p class="hero-sub">Kora Tech installs and monitors advanced telematics across vehicles, aircraft, and yachts — turning real-time data into safer journeys, smarter insurance, and zero unexpected failures.</p>
+    <div class="hero-actions">
+      <a href="#domains" class="btn-gold">Explore Solutions</a>
+      <a href="#booking" class="btn-ghost">Book a Consultation</a>
+    </div>
+    <div class="hero-domains">
+      <div class="hero-domain">
+        <div class="domain-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="domain-label">Vehicles</div>
+        <div class="domain-sub">Maintenance &amp; usage-based insurance telematics</div>
+      </div>
+      <div class="hero-domain">
+        <div class="domain-icon"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+        <div class="domain-label">Aircraft</div>
+        <div class="domain-sub">Predictive maintenance &amp; flight data monitoring</div>
+      </div>
+      <div class="hero-domain">
+        <div class="domain-icon"><svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 4 6"/><path d="M2 20h20"/></svg></div>
+        <div class="domain-label">Yachts</div>
+        <div class="domain-sub">Marine systems health &amp; voyage monitoring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="partners">
+  <div class="partners-inner">
+    <div class="partners-label">Trusted partners &amp; sponsors</div>
+    <div class="partners-divider"></div>
+    <div class="partners-logos">
+      <div class="partner-badge">
+        <div class="pbadge-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.1 2.18 2 2 0 012.08.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7 2 2 0 011.72 2.02z"/></svg></div>
+        <div><div class="pbadge-name">Kenya Airways</div><div class="pbadge-role">Aviation Partner</div></div>
+      </div>
+      <div class="partner-badge">
+        <div class="pbadge-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><div class="pbadge-name">IRA Kenya</div><div class="pbadge-role">Insurance Regulatory Authority</div></div>
+      </div>
+      <div class="partner-badge">
+        <div class="pbadge-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div><div class="pbadge-name">IMO</div><div class="pbadge-role">Int'l Maritime Organization</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="domains" class="section">
+  <div class="domains-header">
+    <div class="sec-label">Our Solutions</div>
+    <h2 class="sec-title">One platform.<br/>Every vessel.</h2>
+    <p class="sec-body">Whether your asset has wheels, wings, or a hull, Kora Tech's telematics suite delivers real-time visibility and actionable intelligence.</p>
+  </div>
+  <div class="domains-grid">
+    <div class="domain-card">
+      <div class="dc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 20h8"/></svg></div>
+      <h3>Fleet Intelligence</h3>
+      <p>Real-time GPS tracking, route optimization, driver scoring and maintenance alerts for commercial fleets.</p>
+      <ul class="dc-features">
+        <li>Live vehicle tracking</li>
+        <li>Fuel and idle monitoring</li>
+        <li>Predictive maintenance</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="dc-icon"><svg viewBox="0 0 24 24"><path d="M3 12h18"/><path d="M7 12V7a1 1 0 011-1h8a1 1 0 011 1v5"/><path d="M10 12v4a2 2 0 004 0v-4"/></svg></div>
+      <h3>Aviation Insight</h3>
+      <p>Flight telemetry and operations analytics for operators who need precise health and usage insights.</p>
+      <ul class="dc-features">
+        <li>Aircraft health monitoring</li>
+        <li>Flight anomaly detection</li>
+        <li>Compliance reporting</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="dc-icon"><svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 4 6"/><path d="M2 20h20"/></svg></div>
+      <h3>Marine Operations</h3>
+      <p>Asset monitoring for yachts and marine fleets with voyage and equipment intelligence.</p>
+      <ul class="dc-features">
+        <li>Engine and battery health</li>
+        <li>Weather-aware routing</li>
+        <li>Remote diagnostics</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="section">
+  <div class="how-inner">
+    <div class="sec-label">How It Works</div>
+    <h2 class="sec-title">From data to decisive action.</h2>
+    <p class="sec-body">Kora Tech combines onboard sensors, cloud analytics, and expert support to keep your operations running smoothly.</p>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="step-n">01</div>
+        <h4>Install</h4>
+        <p>We deploy rugged hardware designed for the harshest environments.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-n">02</div>
+        <h4>Connect</h4>
+        <p>Telemetry flows in real time to a secure dashboard tailored to your assets.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-n">03</div>
+        <h4>Analyze</h4>
+        <p>We detect anomalies and turn raw signals into predictive alerts and insights.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-n">04</div>
+        <h4>Act</h4>
+        <p>Teams receive the right guidance before faults become costly downtime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="coverage" class="section">
+  <div class="coverage-inner">
+    <div>
+      <div class="sec-label">Coverage</div>
+      <h2 class="sec-title">Serving the East African corridor.</h2>
+      <p class="sec-body">From Nairobi to coastal ports and regional operations, Kora Tech supports mission-critical assets with responsive service and local expertise.</p>
+      <div class="map-legend">
+        <div class="legend-item"><span class="legend-dot hq"></span>Regional HQ and engineering support</div>
+        <div class="legend-item"><span class="legend-dot ops"></span>Operational deployment zones</div>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <canvas id="map-canvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="booking" class="section">
+  <div class="booking-inner">
+    <div class="booking-info">
+      <div class="sec-label">Book a Call</div>
+      <h2 class="sec-title">Let’s map your next upgrade.</h2>
+      <p class="sec-body">Schedule a consultation to review your fleet, aircraft, or marine operations and see how telematics can reduce risk and cost.</p>
+      <div class="booking-note">
+        <strong>Response time</strong>
+        <p>Most inquiries receive a reply within 24 hours.</p>
+      </div>
+    </div>
+    <div class="calendly-embed">
+      <span class="cal-section-label">Suggested consultation slots</span>
+      <div class="cal-grid">
+        <div class="cal-day open"><div class="day-name">Mon</div><div class="day-date">01</div></div>
+        <div class="cal-day open"><div class="day-name">Tue</div><div class="day-date">02</div></div>
+        <div class="cal-day open"><div class="day-name">Wed</div><div class="day-date">03</div></div>
+        <div class="cal-day open picked"><div class="day-name">Thu</div><div class="day-date">04</div></div>
+      </div>
+      <div class="cal-times">
+        <div class="cal-time">09:00</div>
+        <div class="cal-time sel">10:30</div>
+        <div class="cal-time">13:00</div>
+        <div class="cal-time">15:30</div>
+      </div>
+      <button class="cal-book-btn">Reserve Consultation</button>
+      <div class="cal-note">A teammate will confirm your preferred time and channel.</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="contact-inner">
+    <div>
+      <div class="sec-label">Contact</div>
+      <h2 class="sec-title">Talk to the team.</h2>
+      <p class="sec-body">We work with operators, insurers, and asset owners across East Africa who want better visibility without added complexity.</p>
+      <div class="contact-details">
+        <div class="cd-item">
+          <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 8l8 5 8-5"/></svg></div>
+          <div>
+            <div class="cd-label">Email</div>
+            <div class="cd-val"><a href="mailto:hello@koratech.co">hello@koratech.co</a></div>
+          </div>
+        </div>
+        <div class="cd-item">
+          <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.81 19.79 19.79 0 01.1 2.18 2 2 0 012.08.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7 2 2 0 011.72 2.02z"/></svg></div>
+          <div>
+            <div class="cd-label">Phone</div>
+            <div class="cd-val"><a href="tel:+254700000000">+254 700 000 000</a></div>
+          </div>
+        </div>
+        <div class="cd-item">
+          <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-4.4 7-11a4 4 0 00-7-2.5A4 4 0 005 10c0 6.6 7 11 7 11z"/></svg></div>
+          <div>
+            <div class="cd-label">Location</div>
+            <div class="cd-val">Nairobi, Kenya</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form">
+      <div class="form-row">
+        <div class="fg">
+          <label for="name">Full name</label>
+          <input id="name" name="name" placeholder="Your name"/>
+        </div>
+        <div class="fg">
+          <label for="email">Email</label>
+          <input id="email" name="email" placeholder="you@company.com"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label for="company">Company</label>
+          <input id="company" name="company" placeholder="Company name"/>
+        </div>
+        <div class="fg">
+          <label for="interest">Interest</label>
+          <select id="interest" name="interest">
+            <option>Vehicle telematics</option>
+            <option>Aviation monitoring</option>
+            <option>Marine systems</option>
+            <option>Insurance integration</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us what you want to monitor or improve."></textarea>
+      </div>
+      <button class="form-submit" type="submit">Send Inquiry <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo-row">
+        <div class="footer-dot"></div>
+        <div class="footer-name">KORA <span>TECH</span></div>
+      </div>
+      <div class="footer-copy">© 2026 Kora Tech. Smart telematics for every journey.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#domains">Solutions</a>
+      <a href="#how">How it Works</a>
+      <a href="#booking">Book a Call</a>
+    </div>
+    <div class="footer-loc"><svg viewBox="0 0 24 24"><path d="M12 21s7-4.4 7-11a4 4 0 00-7-2.5A4 4 0 005 10c0 6.6 7 11 7 11z"/><circle cx="12" cy="10" r="2"/></svg> Nairobi, Kenya</div>
+  </div>
+</footer>
+
+<script>
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr;
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = Math.floor(window.innerWidth * dpr);
+    h = canvas.height = Math.floor(window.innerHeight * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  const particles = Array.from({length: 90}, () => ({x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, r: Math.random()*1.8+0.6, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4}));
+  function draw(){
+    ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+    particles.forEach((p, i) => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -20 || p.x > window.innerWidth+20) p.vx *= -1;
+      if (p.y < -20 || p.y > window.innerHeight+20) p.vy *= -1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fillStyle = 'rgba(201,168,76,0.4)'; ctx.fill();
+      for (let j = i+1; j < particles.length; j++) {
+        const q = particles[j];
+        const dx = p.x-q.x, dy = p.y-q.y; const dist = Math.hypot(dx, dy);
+        if (dist < 120) {
+          ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.strokeStyle = `rgba(201,168,76,${0.08*(1-dist/120)})`; ctx.lineWidth = 1; ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
